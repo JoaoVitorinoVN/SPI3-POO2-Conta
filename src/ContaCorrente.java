@@ -1,4 +1,4 @@
-public class ContaCorrente implements ContaEssencial {
+public class ContaCorrente implements ContaEssencial, Tarifavel {
 
    private Agencia agencia;
    private String numeroConta;
@@ -34,8 +34,19 @@ public class ContaCorrente implements ContaEssencial {
       }
    }
 
+   @Override
+   public void cobrarTarifa(Double valorTarifa) throws ContaException {
+      if (this.saldo >= valorTarifa) {
+         this.saldo -= valorTarifa;
+      } else {
+         throw new ContaException("Saldo insuficiente para cobrar a tarifa");
+      }
+   }
+
    public String getNumeroConta() {
       return numeroConta;
    }
+
+
 
 }

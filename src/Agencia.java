@@ -41,8 +41,21 @@ public class Agencia {
          if (contaRentavel.getNumeroConta().equals(numeroConta)) {
             return contaRentavel;
          }
-      }  throw new ContaException("Numero da conta "+numeroConta+" não existe");
+      }  throw new ContaException("Numero da conta "+ numeroConta +" não existe");
+   }
+   
+   public void cobrarTarifas(Double valorTarifa) {
+      for (ContaEssencial contaEssencial : contasEssenciais) {
+         if (contaEssencial instanceof Tarifavel) {
+            try {
+               ((Tarifavel) contaEssencial).cobrarTarifa(valorTarifa);
+            } catch (ContaException e) {
+               System.out.println("Erro ao cobrar tarifa da conta " + contaEssencial.getNumeroConta() + ": " + e.getMessage());
+            }
+         }
+      }
    }
 
+   
 }
      
